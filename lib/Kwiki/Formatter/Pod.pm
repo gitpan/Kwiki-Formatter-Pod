@@ -1,9 +1,7 @@
 package Kwiki::Formatter::Pod;
-use strict;
-use warnings;
-use Spoon::Formatter '-Base';
-use Kwiki::Installer '-base';
-our $VERSION = '0.10';
+use Spoon::Formatter -Base;
+use Kwiki::Installer -base;
+our $VERSION = '0.11';
 
 const top_class => 'Kwiki::Formatter::Pod::Top';
 const class_title => 'Pod Formatter';
@@ -42,14 +40,12 @@ field 'kwiki_hub';
 sub do_link {
     my $token = shift;
     my $link = $token->attr('to');
-    return super unless $link =~ /^$WORD+$/;
+    return super unless $link =~ /^[$WORD]+$/;
     my $section = $token->attr('section');
     $section = "#$section"
       if defined $section and length $section;
     $self->kwiki_hub->config->script_name . "?$link$section";
 }
-
-1;
 
 package Kwiki::Formatter::Pod;
 __DATA__
